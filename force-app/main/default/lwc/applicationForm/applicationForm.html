@@ -1,0 +1,302 @@
+<template>
+    <div class="page">
+        <div class="hero">
+            <h1>Voice of Hope — Registration Wizard Prototype</h1>
+           <p> Single-page HTML mockup for a multi-step registration flow with household intake, multiple children, medical details, allergies, pickup authorization, waivers, and final review. This is a front-end prototype only, designed to validate user experience and field grouping before implementation.</p>
+        </div>
+
+        <div class="layout">
+            <aside class="sidebar">
+                <h2 class="sidebar-title"><span style="display: inline-block; font-weight: 500; font-size: 16px; margin-bottom: 20px;">Application Steps</span></h2>
+                <div class="step-list">
+                    <template for:each={steps} for:item="step" for:index="index">
+                        <div key={step.id}
+                            class="step-item {step.activeClass}"
+                            data-index={index}
+                            onclick={handleStepClick}>
+                            <div class="step-badge">{index + 1}</div>
+                            <div class="step-content">
+                                <div class="step-title">{step.title}</div>
+                                <div class="step-sub">{step.subtitle}</div>
+                            </div>
+                        </div>
+                   </template>
+                </div>
+            </aside>
+
+            <lightning-card>
+            <div class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>{currentStepTitle}</h2>
+                        <p>{currentStepDescription}</p>
+                    </div>
+
+                    <div class="pill">
+                        Step {currentStepNumber} of {totalSteps}
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <div style={progressStyle}></div>
+                </div>
+
+                
+                <!-- STEP 1: HOUSEHOLD -->
+              
+                <template if:true={isStepOne}>
+                    <div class="section">
+                        <h3>Primary Parent / Guardian</h3>
+                        <p>This section captures the main contact and custodial parent details.<br/><br/></p>
+                        <div class="grid grid-2">
+
+                            <lightning-input label="First Name"
+                                             data-field="firstName"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                            <lightning-input label="Last Name"
+                                             data-field="lastName"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                            <lightning-input label="Phone"
+                                             data-field="phone"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                            <lightning-input label="Email"
+                                             type="email"
+                                             data-field="email"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+                            <lightning-input label="Job Title"
+                                             type="Job Title"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+                            <lightning-input label="Date of Birth"
+                                             type="Date of Birth"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                        </div>
+                    </div>
+                     <div class="section">
+                        <h3>Additional Parent / Guardian</h3>
+                        <p>Optional secondary parent/guardian section from the current paper form.<br/><br/></p>
+                        <div class="grid grid-2">
+
+                            <lightning-input label="First Name"
+                                             data-field="firstName"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                            <lightning-input label="Last Name"
+                                             data-field="lastName"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                            <lightning-input label="Phone"
+                                             data-field="phone"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+
+                            <lightning-input label="Email"
+                                             type="email"
+                                             data-field="email"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+                             <lightning-input label="Job Title"
+                                             type="Job Title"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+                            <lightning-input label="Date of Birth"
+                                             type="Date of Birth"
+                                             onchange={handleInputChange}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                    
+                </template>
+
+                
+                <!-- STEP 2: CHILDREN -->
+             
+                <template if:true={isStepTwo}>
+                    <div class="section">
+
+                        <div class="card-head">
+                            <h3>Children Information</h3>
+                           <p>Add one or more children under the same household application. Each child keeps separate school, grade, medical, and consent details.</p><br/><br/>
+                            <lightning-button label="Add Child"
+                                              variant="brand"
+                                              onclick={handleAddChild}>
+                            </lightning-button>
+                        </div>
+
+                        <template for:each={children} for:item="child" for:index="index">
+                            <div key={child.id} class="child-card">
+                                <div style="margin-top:10px;">
+                                    <lightning-button label="Remove"
+                                                      variant="destructive"
+                                                      data-index={index}
+                                                      onclick={handleRemoveChild}>
+                                    </lightning-button>
+                                </div>
+
+                                <div class="grid grid-3">
+                                    <lightning-input label="Child Name"
+                                                     data-index={index}
+                                                     data-field="name"
+                                                     onchange={handleChildChange}>
+                                    </lightning-input>
+
+                                    <lightning-input label="Date of Birth"
+                                                     data-index={index}
+                                                     data-field="date"
+                                                     onchange={handleChildChange}>
+                                    </lightning-input>
+                                    <lightning-input label="Gender"
+                                                     data-index={index}
+                                                     data-field="gender"
+                                                     onchange={handleChildChange}>
+                                    </lightning-input>
+                                    <lightning-input label="School"
+                                                     data-index={index}
+                                                     data-field="school"
+                                                     onchange={handleChildChange}>
+                                    </lightning-input>
+                                    <lightning-input label="Grade"
+                                                     data-index={index}
+                                                     data-field="grade"
+                                                     onchange={handleChildChange}>
+                                    </lightning-input>
+                                    <lightning-input label="Ethnicity"
+                                                     data-index={index}
+                                                     data-field="ethnicity"
+                                                     onchange={handleChildChange}>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- STEP 3 PLACEHOLDER -->
+                <template if:true={isStepThree}>
+                    <div class="section">
+                        <h3>Emergency Contacts / Authorized Pickup</h3>
+                        <p>The paper form calls out that contact information must be complete at registration. This prototype supports multiple authorized pickup people.</p><br/>
+                         <div class="grid grid-2">
+                            <lightning-input label="Name"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Phone Number"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Driver's License #"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Address"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Relationship"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="May Sign Out Child?"   onchange={handleInputChange}> </lightning-input>
+                         </div>
+                    </div>
+                </template>
+
+                <!-- STEP 4 PLACEHOLDER -->
+                <template if:true={isStepFour}>
+                    <div class="section">
+                        <h3>Family, Household, and Church Information</h3>
+                        <div class="grid grid-2">
+                            <lightning-input label="Church Name"  onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Pastor's Name" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Church Address" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Church Phone Number" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Number in Household" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Free / Reduced Lunches" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Family Setting" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Household Type" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Annual Household Income Range"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="How did you hear about Voice of Hope?"   onchange={handleInputChange}> </lightning-input>
+                         </div>
+                    </div>
+                    <div class="section">
+                        <h3>Eligibility Quick Check</h3>
+                        <div class="check-grid">
+                           <lightning-input type="checkbox"  label="Single-parent household and currently working/job training/education at least 25 combined hours per week" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Two-parent household and both currently working/job training/education at least 50 combined hours per week" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Household falls under the income guidelines " checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                         </div>
+                    </div>
+                </template>
+
+                <!-- STEP 5 PLACEHOLDER -->
+                <template if:true={isStepFive}>
+                    <div class="section">
+                        <h3>Medical & Health Information</h3>
+                        <p>This step is organized per child so allergies, medications, restrictions, and physician details stay attached to the right youth record.</p><br/>
+                         <div class="check-grid">
+                           <lightning-input type="checkbox"  label="Ear Infections" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Nose Bleeding / Clotting" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Epilepsy" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox"  label="Heart Defect / Disease" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Convulsions" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Tonsillitis" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                            <lightning-input type="checkbox"  label="Seizures" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Diabetes" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Hay Fever" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox"  label="Insect Allergy" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Migraines" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Poison Ivy Allergy" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                            <lightning-input type="checkbox" label="Food Allergy" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox"  label="Asthma" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="Skin Rashes / Conditions" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                           <lightning-input type="checkbox" label="ADD / ADHD" checked={isChecked} onchange={handleCheckboxChange}> </lightning-input>
+                         </div>
+                    </div>
+                    <div class="section">
+                         <div class="grid grid-2">
+                            <lightning-textarea label="Food / Medication Allergies Detail" placeholder="Peanuts, penicillin, bee sting allergy, etc." value={messageBody} max-length="300" onchange={handleChange}></lightning-textarea>
+                            <lightning-textarea label="Special Health Considerations" placeholder="Injuries in last 12 months, restrictions, chronic concerns, developmental notes" value={messageBody} max-length="300" onchange={handleChange}></lightning-textarea>
+                             <lightning-input label="Licensed Physician Name" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Physician Phone" onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Preferred Hospital"   onchange={handleInputChange}> </lightning-input>
+                            <lightning-input label="Hospital Phone"   onchange={handleInputChange}> </lightning-input>
+                         </div>
+                    </div>
+                </template>
+               
+                <!-- STEP 6 PLACEHOLDER -->
+                <template if:true={isStepSix}>
+                    <div class="section">
+                        <h3>Consents & Review</h3>
+                        <p>Design ready</p>
+                    </div>
+                </template>
+
+                <!-- FOOTER BUTTONS -->
+               <div class="btn-row">
+
+    <!-- Previous always visible -->
+    <lightning-button label="Previous"
+                      onclick={handlePrevious}>
+    </lightning-button>
+
+    <div class="btn-group">
+
+        <template if:false={isLastStep}>
+            <lightning-button label="Next"
+                              variant="brand"
+                              onclick={handleNext}>
+            </lightning-button>
+        </template>
+        <template if:true={isLastStep}>
+            <lightning-button label="Save"
+                              variant="success"
+                              onclick={handleSave}>
+            </lightning-button>
+        </template>
+
+    </div>
+
+</div>
+            </div>
+            </lightning-card>
+        </div>
+    </div>
+</template>
