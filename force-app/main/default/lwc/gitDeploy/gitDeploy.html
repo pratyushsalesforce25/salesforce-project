@@ -1,8 +1,11 @@
 <template>
-<div class="Container">Welcome To Salesforce Ecosytem
-     <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
-     </div>
+<header class="middle-header">
+        <h1>{brandName}</h1>
+        <nav>
+            <a href="javascript:void(0);" onclick={handleNavClick} data-page="Home">Home</a>
+            <a href="javascript:void(0);" onclick={handleNavClick} data-page="About">About</a>
+            <a href="javascript:void(0);" onclick={handleNavClick} data-page="Services">Services</a>
+            <a href="javascript:void(0);" onclick={handleNavClick} data-page="Contact">Contact</a>
+        </nav>
+    </header>
 </template>
