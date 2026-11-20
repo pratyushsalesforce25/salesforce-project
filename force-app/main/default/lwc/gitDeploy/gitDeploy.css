@@ -1,0 +1,8 @@
+.Container{display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 16px;
+  background-color: #1e293b;
+  color: #ffffff;}
