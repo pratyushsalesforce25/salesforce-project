@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Opportunity Overview</masterLabel>
+    <description
+  >A clean summary card for an Opportunity: stage path, key numbers, next step and contacts.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Opportunity</object>
+            </objects>
+            <property
+        name="showContacts"
+        type="Boolean"
+        label="Show key contacts"
+        default="true"
+        description="Show the contact roles section at the bottom of the card."
+      />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

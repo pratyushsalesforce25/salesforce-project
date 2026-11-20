@@ -1,0 +1,195 @@
+<template>
+  <lightning-card variant="base">
+    <div slot="title" class="card-title">
+      <lightning-icon
+        icon-name="standard:opportunity"
+        size="small"
+      ></lightning-icon>
+      <span class="card-title-text">Opportunity Overview</span>
+    </div>
+    <div slot="actions">
+      <lightning-button-icon
+        icon-name="utility:refresh"
+        variant="border-filled"
+        alternative-text="Refresh"
+        title="Refresh"
+        onclick={handleRefresh}
+      ></lightning-button-icon>
+    </div>
+
+    <div class="card-body">
+      <template lwc:if={isLoading}>
+        <div class="loading">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="small"
+          ></lightning-spinner>
+        </div>
+      </template>
+
+      <template lwc:elseif={error}>
+        <div class="error-box" role="alert">
+          <lightning-icon
+            icon-name="utility:error"
+            size="x-small"
+            variant="error"
+          ></lightning-icon>
+          <span>{errorMessage}</span>
+        </div>
+      </template>
+
+      <template lwc:elseif={data}>
+        <div class="spinner-wrap" lwc:if={isRefreshing}>
+          <lightning-spinner
+            alternative-text="Refreshing"
+            size="small"
+          ></lightning-spinner>
+        </div>
+
+        <!-- Deal header -->
+        <div class="hero">
+          <div class="hero-main">
+            <h2 class="deal-name">{data.name}</h2>
+            <div class="deal-meta">
+              <template lwc:if={data.accountName}>
+                <a href="#" class="meta-link" onclick={handleOpenAccount}
+                  >{data.accountName}</a
+                >
+                <span class="meta-dot">•</span>
+              </template>
+              <span>Owner: {ownerLabel}</span>
+            </div>
+          </div>
+          <span class={statusClass}>{statusLabel}</span>
+        </div>
+
+        <!-- Stage path -->
+        <div class="path" lwc:if={hasStages}>
+          <lightning-progress-indicator
+            current-step={currentStep}
+            type="path"
+            variant="base"
+          >
+            <template for:each={data.stageNames} for:item="stage">
+              <lightning-progress-step
+                key={stage}
+                label={stage}
+                value={stage}
+              ></lightning-progress-step>
+            </template>
+          </lightning-progress-indicator>
+        </div>
+
+        <!-- KPI tiles -->
+        <div class="kpis">
+          <div class="kpi">
+            <span class="kpi-label">Amount</span>
+            <template lwc:if={hasAmount}>
+              <lightning-formatted-number
+                class="kpi-value"
+                value={data.amount}
+                format-style="currency"
+                currency-code={currencyCode}
+                maximum-fraction-digits="0"
+              ></lightning-formatted-number>
+            </template>
+            <template lwc:else>
+              <span class="kpi-value kpi-empty">—</span>
+            </template>
+          </div>
+
+          <div class="kpi kpi-probability">
+            <lightning-progress-ring
+              value={probabilityValue}
+              size="medium"
+              variant={ringVariant}
+            ></lightning-progress-ring>
+            <div class="kpi-text">
+              <span class="kpi-label">Probability</span>
+              <span class="kpi-value">{probabilityValue}%</span>
+            </div>
+          </div>
+
+          <div class="kpi">
+            <span class="kpi-label">Close date</span>
+            <lightning-formatted-date-time
+              class="kpi-value"
+              value={data.closeDate}
+              year="numeric"
+              month="short"
+              day="2-digit"
+              time-zone="UTC"
+            ></lightning-formatted-date-time>
+            <span class={daysClass}>{daysLabel}</span>
+          </div>
+        </div>
+
+        <!-- Next step -->
+        <div class="callout" lwc:if={data.nextStep}>
+          <lightning-icon
+            icon-name="utility:forward"
+            size="x-small"
+          ></lightning-icon>
+          <div class="callout-text">
+            <span class="callout-label">Next step</span>
+            <span>{data.nextStep}</span>
+          </div>
+        </div>
+
+        <!-- Open activities -->
+        <div class="activities">
+          <lightning-icon
+            icon-name="utility:task"
+            size="x-small"
+          ></lightning-icon>
+          <span>{tasksLabel}</span>
+        </div>
+
+        <!-- Contacts -->
+        <div class="contacts" lwc:if={showContactSection}>
+          <h3 class="section-title">Key contacts</h3>
+          <template lwc:if={hasContacts}>
+            <ul class="contact-list">
+              <template for:each={contacts} for:item="contact">
+                <li key={contact.contactId} class="contact">
+                  <span class="avatar" aria-hidden="true"
+                    >{contact.initials}</span
+                  >
+                  <div class="contact-info">
+                    <a
+                      href="#"
+                      class="contact-name"
+                      data-id={contact.contactId}
+                      onclick={handleOpenContact}
+                      >{contact.name}</a
+                    >
+                    <span class="contact-role">{contact.roleLabel}</span>
+                  </div>
+                  <lightning-badge
+                    lwc:if={contact.isPrimary}
+                    label="Primary"
+                    class="slds-badge_inverse"
+                  ></lightning-badge>
+                  <a
+                    lwc:if={contact.email}
+                    class="contact-mail"
+                    href={contact.mailto}
+                    title={contact.mailTitle}
+                  >
+                    <lightning-icon
+                      icon-name="utility:email"
+                      size="x-small"
+                    ></lightning-icon>
+                  </a>
+                </li>
+              </template>
+            </ul>
+          </template>
+          <template lwc:else>
+            <p class="empty">No contact roles on this opportunity yet.</p>
+          </template>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>

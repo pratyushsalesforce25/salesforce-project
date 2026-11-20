@@ -1,0 +1,288 @@
+:host {
+  display: block;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-title-text {
+  font-weight: 700;
+}
+
+.card-body {
+  position: relative;
+  min-height: 6rem;
+  padding: 0 1rem 1rem;
+}
+
+.loading {
+  position: relative;
+  min-height: 5rem;
+}
+
+.spinner-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.error-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #fef1ee;
+  color: #8e030f;
+}
+
+/* Deal header */
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #eaf5fe 0%, #f6f2ff 100%);
+}
+
+.deal-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #032d60;
+}
+
+.deal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: #444;
+}
+
+.meta-link {
+  font-weight: 600;
+}
+
+.meta-dot {
+  color: #939393;
+}
+
+.status {
+  flex-shrink: 0;
+  padding: 0.2rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-open {
+  background: #cfe9fe;
+  color: #014486;
+}
+
+.status-won {
+  background: #cdefc4;
+  color: #034f23;
+}
+
+.status-lost {
+  background: #fecaca;
+  color: #8e030f;
+}
+
+/* Stage path */
+.path {
+  margin-bottom: 1rem;
+}
+
+/* KPI tiles */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.kpi-probability {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.kpi-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.kpi-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+
+.kpi-value {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #181818;
+}
+
+.kpi-empty {
+  color: #939393;
+}
+
+.days {
+  align-self: flex-start;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.days-ok {
+  background: #e3f3ff;
+  color: #014486;
+}
+
+.days-soon {
+  background: #fff0d6;
+  color: #7a4c00;
+}
+
+.days-late {
+  background: #fecaca;
+  color: #8e030f;
+}
+
+.days-neutral {
+  background: #f3f3f3;
+  color: #5c5c5c;
+}
+
+/* Next step */
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-left: 4px solid #0176d3;
+  border-radius: 0.5rem;
+  background: #f3f9ff;
+}
+
+.callout-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.callout-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #014486;
+}
+
+/* Activities */
+.activities {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8125rem;
+  color: #444;
+}
+
+/* Contacts */
+.section-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+
+.contact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.contact:first-child {
+  border-top: 0;
+}
+
+.avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: #0176d3;
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.contact-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contact-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-role {
+  font-size: 0.75rem;
+  color: #5c5c5c;
+}
+
+.empty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #5c5c5c;
+}
