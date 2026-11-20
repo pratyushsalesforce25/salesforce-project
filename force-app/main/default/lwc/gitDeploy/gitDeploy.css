@@ -1,8 +1,32 @@
-.Container{display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 24px 16px;
-  background-color: #1e293b;
-  color: #ffffff;}
+.middle-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 16px;
+    background-color: #1e293b;
+    color: #ffffff;
+}
+
+.middle-header > h1 {
+    margin: 0 0 12px 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.middle-header > nav {
+    display: flex;
+    gap: 20px;
+}
+
+.middle-header > nav > a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.middle-header > nav > a:hover {
+    color: #ffffff;
+}
